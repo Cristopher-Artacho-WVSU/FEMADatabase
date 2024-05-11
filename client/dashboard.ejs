@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FEMA Mututal Fund System - Dashboard</title>
+    <!-- PRESS START 2P FONT FOR LOGOUT AND ADMIN NAME-->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    
+    <!-- ROBOTO MONO DISPLAY FONT FOR THE ADMIN ID -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap" rel="stylesheet">
+    
+    <!-- CSS FILE -->
+    <link rel="stylesheet" href="/dashboard_style.css">
+</head>
+<body>
+    <div id="FEMABrand">FEMA Loan Management System</div>
+    <!-- FOR ADMIN CREDENTIALS: FULL NAME AND FEMAAdminID -->
+    <div id="AdminCredentials">
+        <p id="welcomeMessage">Welcome Back!</p>
+        <p id="adminFullName"></p>
+        <p id="adminID"></p>
+    </div>
+
+    <!-- FOR ADDING AND VIEWING MEMBER WEBPAGES -->
+    <div id="Members" onclick="toggleMembers()"> <p>Members</p> <br>
+        <button class="functionalButtons" onclick="window.location.href='/FEMA-Mutual-Fund-System/add-members' "> Add New Members</button> <br>
+        <button class="functionalButtons" onclick="window.location.href='/FEMA-Mutual-Fund-System/members'">View All Members</button>
+    </div>
+
+    <!-- FOR VIEWING AND ADDING LOAN WEBPAGES -->
+    <div id="Loans" onclick="toggleLoans()"> <p>Loans</p> <br>
+        <button class="functionalButtons" onclick="window.location.href='/FEMA-Mutual-Fund-System/add-loan'"> Create New Loan</button> <br>
+        <button class="functionalButtons" onclick="window.location.href='/FEMA-Mutual-Fund-System/loan-history'">View All Loans</button>
+    </div>
+
+    <!-- FOR LOGGING OUT -->
+    <button id="logOutButton">Log Out</button>
+
+    <!-- SCRIPT FILE -->
+    <script src="/dashboard_script.js"></script>
+</body>
+</html>

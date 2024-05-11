@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FEMA Mutual Fund System</title>
+
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    
+    <!-- ROBOTO MONO DISPLAY FONT FOR THE ADMIN ID -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap" rel="stylesheet">
+
+    <style>
+        body{
+            grid-template-columns: repeat(5, 382px);
+            grid-template-rows: repeat(4, 170px);
+            display: grid;
+            margin-top: 10px;
+        }
+        #FEMABrand{
+            grid-column: 1/span 3;
+            grid-row: 1;
+            font-family: 'Press Start 2P', sans-serif;
+            font-size: 30px;
+            padding-top: 15px;
+            padding-left: 15px;
+        }
+
+        #memberFormDiv{
+            grid-column: 2/span 2;
+            grid-row: 2/span 3;
+            margin-left: 100px;
+            margin-right: 100px;
+            margin-bottom: 100px;
+            box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.1);
+        
+        }
+        #memberFormDiv input{
+            width: 90%;
+            height: 20px;
+            margin-bottom: 20px;
+            font-family: 'Roboto Mono', monospace;
+        }
+        #memberFormDiv button{
+            margin-top: 20px;
+            width: 130px;
+            height: 40px;
+        }
+        #memberFormDiv label{
+            font-family: 'Press Start 2P', sans-serif; 
+        }
+    </style>
+</head>
+<body>
+    <div id="FEMABrand">FEMA Loan Management System</div>
+
+    <!-- MEMBER FORM -->
+    <div id="memberFormDiv">
+        <form id="memberForm">
+            <label for="firstName">First Name:</label><br>
+            <input id="firstName" type="text" name="firstName"> <br>
+
+            <label for="middleName">Middle Name:</label><br>
+            <input id="middleName" type="text" name="middleName"> <br>
+
+            <label for="lastName">Last Name:</label><br>
+            <input id="lastName" type="text" name="lastName"> <br>
+
+            <label for="department">Department-in-charge:</label> <br>
+            <input id="department" type="text" name="department"> <br>
+
+            <label for="capitalInitial">Initial Paid Capital</label> <br>
+            <input id="capitalInitial" type="text" name="capitalInitial">
+            
+            <button type="submit">Submit</button>
+        </form>
+
+        <script>
+            document.getElementById('memberForm').addEventListener('submit', function() {
+                
+                var totalLoan = 0;
+                // VALUES FROM THE INPUT ELEMENTS ARE CONVERTED INTO VARIABLES
+                const memberFirstName = document.getElementById('firstName').value;
+                const memberMiddleName = document.getElementById('middleName').value;
+                const memberLastName = document.getElementById('lastName').value;
+                const departmentInCharge = document.getElementById('department').value;
+                const InitialLoan = parseInt(document.getElementById('capitalInitial').value);
+                totalLoan += InitialLoan;
+                //INITIATED VALUES HERE
+                //VALUE FOR StartDateMember 
+                const date = new Date();
+                const day = String(date.getDate()).padStart(2, '0'); 
+                const month = String(date.getMonth() + 1).padStart(2, '0'); 
+                const year = date.getFullYear(); 
+                var startDateMember = `${year}-${month}-${day}`;
+                //VALUE FOR memberFullName
+                const memberFullName = memberFirstName + " " + memberLastName;
+
+                //VARIABLES ARE TAKEN IN FOR JSON FORMAT
+                const memberData = {
+                    memberFirstName,
+                    memberMiddleName,
+                    memberLastName,
+                    memberFullName,
+                    departmentInCharge,
+                    InitialLoan,
+                    totalLoan,
+                    startDateMember
+                    
+                }
+
+                fetch('/database/members', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(memberData)
+                })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error ('Failed to add User Data to FEMAMemberDB')
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    console.log('Added the user data to FEMAMemberDB')
+                    window.location.href ='/FEMA-Mutual-Fund-System/dashboard'
+                })
+            })
+        </script>
+
+    </div>
+    
+</body>
+</html>

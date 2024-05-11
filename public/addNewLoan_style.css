@@ -1,0 +1,59 @@
+#loanTypeValues{
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 200px; /* Adjust width as needed */
+    max-height: 200px; /* Adjust max height as needed */
+    overflow-y: auto; /* Enable scrolling */
+    border: 1px solid #ccc;
+    z-index: 1;
+}
+/* THE VALUES FOR THE LOAN  */
+#loanTypeValues p{
+display: block;
+padding: 5px 10px;
+text-decoration: none;
+color: #333;
+}
+
+#loanPurposeValues{
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 200px; /* Adjust width as needed */
+    max-height: 200px; /* Adjust max height as needed */
+    overflow-y: auto; /* Enable scrolling */
+    border: 1px solid #ccc;
+    z-index: 1;
+}
+/* THE VALUES FOR THE LOAN  */
+#loanPurposeValues p{
+display: block;
+padding: 5px 10px;
+text-decoration: none;
+color: #333;
+}
+
+#grantedLoanValues{
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 200px; /* Adjust width as needed */
+    max-height: 200px; /* Adjust max height as needed */
+    overflow-y: auto; /* Enable scrolling */
+    border: 1px solid #ccc;
+    z-index: 1;
+}
+/* THE VALUES FOR THE LOAN  */
+#grantedLoanValues p{
+display: block;
+padding: 5px 10px;
+text-decoration: none;
+color: #333;
+}
+
+#loanFormDiv{
+    width: 200px;
+    height: 300px;
+    text-align: center;
+}

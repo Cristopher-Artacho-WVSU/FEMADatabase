@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FEMA Mutual Fund System</title>
+    <style>
+    #loanTypeValues{
+            display: none;
+            position: absolute;
+            background-color: #f9f9f9;
+            min-width: 200px; /* Adjust width as needed */
+            max-height: 200px; /* Adjust max height as needed */
+            overflow-y: auto; /* Enable scrolling */
+            border: 1px solid #ccc;
+            z-index: 1;
+        }
+    /* THE VALUES FOR THE LOAN  */
+    #loanTypeValues p{
+        display: block;
+        padding: 5px 10px;
+        text-decoration: none;
+        color: #333;
+    }
+
+    #loanPurposeValues{
+            display: none;
+            position: absolute;
+            background-color: #f9f9f9;
+            min-width: 200px; /* Adjust width as needed */
+            max-height: 200px; /* Adjust max height as needed */
+            overflow-y: auto; /* Enable scrolling */
+            border: 1px solid #ccc;
+            z-index: 1;
+        }
+    /* THE VALUES FOR THE LOAN  */
+    #loanPurposeValues p{
+        display: block;
+        padding: 5px 10px;
+        text-decoration: none;
+        color: #333;
+    }
+    
+    #grantedLoanValues{
+            display: none;
+            position: absolute;
+            background-color: #f9f9f9;
+            min-width: 200px; /* Adjust width as needed */
+            max-height: 200px; /* Adjust max height as needed */
+            overflow-y: auto; /* Enable scrolling */
+            border: 1px solid #ccc;
+            z-index: 1;
+        }
+    /* THE VALUES FOR THE LOAN  */
+    #grantedLoanValues p{
+        display: block;
+        padding: 5px 10px;
+        text-decoration: none;
+        color: #333;
+    }
+        
+    </style>
+</head>
+<body>
+
+    <div id="loanFormDiv">
+        <form id="loanForm">
+
+            <!-- ENTER THE MEMBER FULL NAME -->
+            <label for="memberFullName">Member Full Name:</label> <br>
+            <input id="memberFullName" type="text" placeholder="Given Name and Last Name (e.g John Doe)"><br>
+
+            <!-- THE MEMBER ID, AFTER ENTERING THE FULL NAME, THERE SHOULD POP UP AN ID FOR MEMBERS -->
+            <!-- <label for="memberID">Member ID:</label><br>
+            <input id="memberID" type="text" readonly><br> -->
+
+            <!-- SELECT THE LENGTH OF THE LOAN TO AVAIL -->
+            <label for="LoanLengthType">Select the Duration of the Loan</label><br>
+            <input id="LoanLengthType" type="text" name="loanLengthType" placeholder="Select The Loan Duration to Avail" readonly onclick="toggleLoanTypeContent()"><br>
+            <div id="loanTypeValues">
+                <p onclick="setLoanTypeValue('Short Term')">Short Term</p>
+                <p onclick="setLoanTypeValue('Long Term')">Long Term</p>
+            </div>
+
+            <!-- SELECT THE TYPE OF LOAN TO AVAIL -->
+            <label for="LoanPurpose">Avail what kind of Loan:</label> <br>
+            <input id="LoanPurpose" type="text" name="loanPurpose" placeholder="Select the type of Loan to Avail" readonly onclick="toggleLoanPurposeContent()"><br>
+            <div id="loanPurposeValues" >
+                <p onclick="setLoanPurposeValue('Appliance')">Appliance</p>
+                <p onclick="setLoanPurposeValue('Emergency')">Emergency</p>
+                <p onclick="setLoanPurposeValue('Educational')">Educational</p>
+                <p onclick="setLoanPurposeValue('AR/Others')">AR/Others</p>
+            </div>
+
+            <label for="loanAmount">Loan Amount:</label> <br>
+            <input id="loanAmount" type="text" placeholder="Enter the Value for the Loan"> <br>
+
+
+            <!-- FOR REVIEWING PURPOSES, ENSURING THAT THE MEMBER CREDENTIALS ARE SATISFIED -->
+            <label for="GrantedLoanStatus">Loan Status:</label> <br>
+            <input id="GrantedLoanStatus" name="loanStatus" placeholder="Select the Status of the Loan" readonly onclick="toggleLoanGrantedContent()"> <br>
+            <div id="grantedLoanValues">
+                <p onclick="setLoanGrantedValues('Granted')">Granted</p>
+                <p onclick="setLoanGrantedValues('Rejected')">Rejected</p>
+            </div>
+
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+
+    <script>
+        //TOGGLING THE CONTENTS
+        function toggleLoanGrantedContent(){
+            
+            var loanGrantedContent = document.getElementById("grantedLoanValues");
+            //IF THE STLE FOR DISPLAY IS "block", MAKE IT DISAPPEAR. ELSE, MAKE IT APPEAR
+            if (loanGrantedContent.style.display === "block") {
+                loanGrantedContent.style.display = "none";
+            } else {
+                loanGrantedContent.style.display = "block";
+            }
+        }
+
+        function toggleLoanPurposeContent(){
+            var LoanPuroseContent = document.getElementById("loanPurposeValues");
+
+            if (LoanPuroseContent.style.display === "block"){
+                LoanPuroseContent.style.display = "none";
+            } else {
+                LoanPuroseContent.style.display = "block"
+            }
+        }
+
+        function toggleLoanTypeContent(){
+            var LoanTypeContent = document.getElementById("loanTypeValues");
+
+            if (LoanTypeContent.style.display === "block"){
+                LoanTypeContent.style.display = "none";
+            } else {
+                LoanTypeContent.style.display = "block"
+            }
+        }
+
+    // SETTING THE VALUES FOR THE READONLY INPUTS
+        function setLoanGrantedValues(value){
+            // INITIATES THE DISPLAY OF grantedLoanValues DIVISION TO NONE.
+            // IF A p IS CLICKED, ITS VALUE WILL BE ATTACHED TO THE INPUT
+            document.getElementById("grantedLoanValues").style.display = "none";
+            document.getElementById("GrantedLoanStatus").value = value;
+        }
+
+        function setLoanPurposeValue(value) {
+            document.getElementById("loanPurposeValues").style.display = "none"
+            document.getElementById("LoanPurpose").value = value;
+        }
+
+        function setLoanTypeValue(value) {
+            document.getElementById("loanTypeValues").style.display = "none"
+            document.getElementById("LoanLengthType").value = value
+        }
+
+        //CONVERTING ALL THE FIELD VALUES TO JSON FILE TO BE SENT TO THE DATABASE
+        document.getElementById('loanForm').addEventListener('submit', async function() {
+            //THE VALUES THAT DOES NOT NEED ANY OPERATIONS
+            const loanDuration = document.getElementById("LoanLengthType").value;
+            const loanPurpose = document.getElementById("LoanPurpose").value;
+            const loanAmount = parseInt(document.getElementById("loanAmount").value);
+            const loanStatus = document.getElementById("GrantedLoanStatus").value;
+            const memberFullName = document.getElementById("memberFullName").value;
+            
+            const date = new Date();
+            const day = String(date.getDate()).padStart(2, '0'); 
+            const month = String(date.getMonth() + 1).padStart(2, '0'); 
+            const year = date.getFullYear(); 
+            const loanApprovedDate = `${year}-${month}-${day}`;
+            const memberID = await getMemberID(memberFullName);
+
+
+            // addTotalLoanAmount(loanAmount, memberID);
+
+            const loanData = {
+                memberID,
+                loanDuration,
+                loanPurpose,
+                loanAmount,
+                loanStatus,
+                loanApprovedDate
+            }
+            fetch ('/database/loans', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(loanData)
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Failed to add the loan data to LoanDB');
+                }
+                return response.json();
+            })
+            .then (data => {
+                console.log('Added the Loan Data to LoanDB')
+                window.location.href = '/FEMA-Mutual-Fund-System/dashboard'
+            })
+        })
+
+
+
+
+
+        async function getMemberID(memberFullName){
+            const response = await fetch(`/database/members?memberFullName=${memberFullName}`, {
+                method: 'GET'
+            });
+            // IF WE CANNOT CONNECT TO THE COLLECTION
+            if (!response.ok){
+                throw new Error('Error Connecting to the FEMAmemberDB collection. Try again');
+            }
+            const memberData = await response.json();
+
+            const memberFind = memberData.find(member => member.memberFullName === memberFullName);
+            // IF MEMBER IS FOUND, WE GET THE _id CONTENT AND RETURN IT
+            if (memberFind){
+                const  {
+                    _id,
+                    memberFirstName,
+                    memberMiddleName,
+                    memberLastName,
+                    memberFullName,
+                    departmentInCharge,
+                    InitialLoan,
+                    totalLoan,
+                    startDateMember
+                } = memberFind;
+
+                return _id;
+            } else {
+                alert('Invalid Full Name or No Member with the inputted Full Name')
+            }
+        }
+
+        // FUNCTION FOR ADDING BALANCE TO THE totalLoan
+    //     async function addTotalLoanAmount(loanAmount, memberID) {
+        
+    //     const GETresponse = await fetch(`/database/members/${memberID}`, {
+    //         method: 'GET',
+    //     });
+    //     if (!GETresponse.ok) {
+    //         throw new Error('Failed to Connect to FEMAMemberDB')
+    //     }
+    //     const memberData = await response.json();
+    //     const memberFind = memberData.find(member => member._id === memberID)
+    //     if (memberFind){
+    //         const {
+    //             _id,
+    //             memberFirstName,
+    //             memberMiddleName,
+    //             memberLastName,
+    //             memberFullName,
+    //             departmentInCharge,
+    //             InitialLoan,
+    //             totalLoan,
+    //             startDateMember
+    //         } = memberFind
+    //     }
+    //     memberFind
+    //     const PATCHresponse = await fetch(`/database/members/${memberID}`, {
+    //         method: 'PATCH',
+    //         headers: {
+    //             'Content-Type': 'application/json'
+    //         },
+    //         body: JSON.stringify({ totalLoan: loanAmount }) // Send the new value to be added to totalLoan
+    //     });
+
+    //     if (!PATCHresponse.ok) {
+    //         throw new Error('Network response was not ok');
+    //     }
+
+    //     const data = await response.json();
+    //     console.log('User updated successfully:', data);
+    // } 
+
+    </script>
+</body>
+</html>
